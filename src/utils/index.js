@@ -1,13 +1,10 @@
 import * as crypto from 'crypto';
+import jwt from 'jsonwebtoken';
 
 export const getUserNameFromAuthorization = (authHeader) => {
     let token = extractTokenFromHeader(authHeader);
-    try {
-        const decodedToken = jwt.verify(token, process.env.SECRET);
-        return decodedToken.data;
-    } catch(error) {
-        throw error;
-    }
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    return decodedToken.data;
 }
 
 export const extractTokenFromHeader = (header) => {

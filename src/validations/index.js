@@ -1,4 +1,4 @@
-import {body} from 'express-validator';
+import {body, check} from 'express-validator';
 
 export const validateLogin = [
     body('email').isEmail(),
@@ -12,16 +12,13 @@ export const validateUserRegister = [
 ];
 
 export const validateLocationRegister = [
-    body('username').not().isEmpty(),
-    body('password').not().isEmpty()
+    check('copyid').not().isEmpty()
 ];
 
 export const validateLocationReturn = [
-    body('username').not().isEmpty(),
-    body('password').not().isEmpty()
+    check('copyid').not().isEmpty(),
 ];
 
 export const validateMovieSearch = [
-    body('username').not().isEmpty(),
-    body('password').not().isEmpty()
+    body('name').not().isEmpty(),
 ];

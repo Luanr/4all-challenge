@@ -7,7 +7,7 @@ export const getAvailableMovies = async (req, res) => {
             text: `SELECT copies.id, movies.title, directors.name FROM movies INNER JOIN directors
             ON movies.director_id = directors.id INNER JOIN copies
             ON copies.movie_id = movies.id LEFT JOIN locations
-            ON locations.return_timestamp = null`,
+            ON locations.return_timestamp IS NULL`,
             rowMode: 'array'
         }));
         res.json(queryResult.rows);
