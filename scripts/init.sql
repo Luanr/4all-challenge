@@ -1,27 +1,31 @@
 CREATE TABLE Users (
-    id          SERIAL           PRIMARY KEY,
-    username    character(64)    NOT NULL,
-    email       character(64)    NOT NULL,
-    password    character(64)    NOT NULL,
-    salt        character(64)    NOT NULL
+    id          SERIAL              PRIMARY KEY,
+    username    CHARACTER VARYING   NOT NULL,
+    email       CHARACTER VARYING   NOT NULL,
+    password    CHARACTER VARYING   NOT NULL,
+    salt        CHARACTER VARYING   NOT NULL
 );
 
 CREATE TABLE Directors (
     id      SERIAL PRIMARY KEY,
-    name    character(40)
+    name    CHARACTER VARYING
 );
 
 CREATE TABLE Movies (
     id          SERIAL PRIMARY KEY,
-    title       character(64),
+    title       CHARACTER VARYING,
     director_id integer REFERENCES Directors(id)
+);
+
+CREATE TABLE Copies (
+    id                      SERIAL PRIMARY KEY,
+    movie_id                integer REFERENCES Movies(id)
 );
 
 CREATE TABLE Locations (
     id                      SERIAL PRIMARY KEY,
     user_id                 integer REFERENCES Users(id),
-    movie_id                integer REFERENCES Movies(id),
-    director_id             integer REFERENCES Directors(id),
+    copy_id                 integer REFERENCES Copies(id),
     location_timestamp      TIMESTAMP NOT NULL,
     return_timestamp        TIMESTAMP
 );
@@ -42,3 +46,10 @@ INSERT INTO Movies (title, director_id) VALUES ('George and A.J.', (SELECT (id) 
 INSERT INTO Movies (title, director_id) VALUES ('Ratatouille', (SELECT (id) FROM Directors WHERE name ='Brad Bird'));
 INSERT INTO Movies (title, director_id) VALUES ('Os Incríveis 2', (SELECT (id) FROM Directors WHERE name ='Brad Bird'));
 INSERT INTO Movies (title, director_id) VALUES ('O Ataque do Zezé', (SELECT (id) FROM Directors WHERE name ='Brad Bird'));
+
+INSERT INTO Copies (movie_id) values ((SELECT (id) FROM Movies WHERE title ='Coringa'));
+INSERT INTO Copies (movie_id) values ((SELECT (id) FROM Movies WHERE title ='Coringa'));
+INSERT INTO Copies (movie_id) values ((SELECT (id) FROM Movies WHERE title ='Parasita'));
+INSERT INTO Copies (movie_id) values ((SELECT (id) FROM Movies WHERE title ='1917'));
+INSERT INTO Copies (movie_id) values ((SELECT (id) FROM Movies WHERE title ='Ratatouille'));
+INSERT INTO Copies (movie_id) values ((SELECT (id) FROM Movies WHERE title ='Ratatouille'));

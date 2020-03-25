@@ -15,3 +15,13 @@ export const validateLocationRegister = [
     body('username').not().isEmpty(),
     body('password').not().isEmpty()
 ];
+
+export const validateLocationReturn = [
+    body('username').not().isEmpty(),
+    body('password').not().isEmpty()
+];
+
+export const validateMovieSearch = [
+    body('username').not().isEmpty(),
+    body('password').not().isEmpty()
+];
